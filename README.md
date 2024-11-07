@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Stock Filtering App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+- Filter stocks based on various financial metrics
+- Sort columns in the stock table
+- Pagination support
+- Example query formatting
 
-## Available Scripts
+## Tech Stack
+- React
+- React Router
+- Recharts
+- Tailwind CSS
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+1. **Install dependencies**
+Make sure you have Node.js installed. Then, install the required dependencies:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Run the application**
+Once the dependencies are installed, run the development server:
+```bash
+npm start
+```
 
-### `npm test`
+Your app should now be running at http://localhost:3000.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Filter Stocks: 
+Enter filter criteria using the "Search Query" text field.
+Sort Columns: Click on any of the column headers in the table to sort the data.
+Pagination: Use the "Previous" and "Next" buttons to navigate between pages.
+Demo Query: View an example of how to format a query by clicking on the 'DEMO Query' section.
+I have used the data in the JSON format for the ease.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Example Query:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Example: "Market Capitalization > 50 AND P/E Ratio < 20"
+This query will filter stocks that have a market capitalization greater than 50 and a P/E ratio less than 20.
 
-### `npm run eject`
+#### Writing a Query:
+The query syntax follows the pattern of "Parameter Comparison Value" where:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- The query should be in parameter operator and value format and also you can use the AND for the more the one conditions.
+- The parameter should be written with a valid spelling.
+- The query support these operators only
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  &gt; (greater than)
+  
+  <  (less than)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  =  (equal to)
 
-## Learn More
+  &gt;= (greater than or equal to)
+  
+  <= (less than or equal to)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Parameters
+- Market Capitalization
+- P/E Ratio
+- ROE
+- Debt-to-Equity Ratio
+- Dividend Yield
+- Revenue Growth
+- EPS Growth
+- Current Ratio
+- Gross Margin
+  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Value is the number to compare with (e.g., 50, 20).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
