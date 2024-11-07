@@ -56,7 +56,7 @@ const Stock = () => {
     if (error !== '') {
       setError('');
     }
-  
+
     // Split the query into conditions and parse each condition
     const conditions = query.split('AND').map(condition => {
       const parts = condition.trim().split(/\s*([<>=!]+)\s*/);
@@ -65,14 +65,14 @@ const Stock = () => {
         setLoading(false);
         return null; // Return null to indicate an invalid condition
       }
-      
+
       const [field, operator, value] = parts;
       return [field.trim(), operator.trim(), value.trim()];
     }).filter(Boolean);
 
-    
+
     console.log(conditions);
-  
+
     // Validate the conditions
     const validFields = ['Market Capitalization', 'P/E Ratio', 'ROE', 'Debt-to-Equity Ratio', 'Dividend Yield', 'Revenue Growth', 'EPS Growth', 'Current Ratio', 'Gross Margin'];
     const m = new Map([
@@ -100,28 +100,29 @@ const Stock = () => {
         setLoading(false);
         return;
       }
-  
+
       if (!['>', '<', '=', '>=', '<='].includes(operator)) {
         setError(`Invalid operator: ${operator}. Please try again.`);
         setLoading(false);
         return;
       }
-  
+
       if (isNaN(value)) {
         setError(`Invalid value: ${value}. Please try again.`);
         setLoading(false);
         return;
       }
     }
-    
+
     // Uncomment the code for filtering stocks
     const filteredStocks = Stocks.filter(stock => {
       return conditions.every(([field, operator, value]) => {
         const stockValue = stock[m.get(field)]; // Directly access the field value from the stock
-        // console.log(`Checking stock field: ${field}, operator: ${operator}, value: ${value}, stockValue: ${stockValue}`);
-    
+
+        console.log(`Checking stock field: ${field}, operator: ${operator}, value: ${value}, stockValue: ${stockValue}`);
+
         if (stockValue === undefined || stockValue === null) return false; // Skip if field is missing
-    
+
         // Perform the condition check based on operator
         switch (operator) {
           case '>':
@@ -129,7 +130,7 @@ const Stock = () => {
           case '<':
             return stockValue < value;
           case '=':
-            return stockValue === value;
+            return stockValue == value;
           case '>=':
             return stockValue >= value;
           case '<=':
@@ -139,15 +140,15 @@ const Stock = () => {
         }
       });
     });
-    
+
     console.log('Filtered Stocks:', filteredStocks);
-    
-    
+
+
     setFilteredStocks(filteredStocks);
-  
+
     setLoading(false);
   };
-    
+
 
   const startIndex = (currentPage - 1) * resultsPerPage;
   const endIndex = startIndex + resultsPerPage;
@@ -248,7 +249,6 @@ const Stock = () => {
             </div>
           </div>
 
-
           <div className="flex flex-col items-center mt-8 space-y-4 w-full">
             {/* Heading and paragraph */}
             <div className="w-full max-w-screen-xl mb-6">
@@ -264,32 +264,33 @@ const Stock = () => {
             )}
 
             {/* Input field and DEMO Query */}
-            <div className="flex w-full max-w-screen-xl space-x-2">
+            <div className="flex flex-wrap w-full max-w-screen-xl space-x-2">
               <input
                 type="text"
                 placeholder="Search stocks by criteria..."
-                className="w-2/3 h-40 p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-[25px]"
+                className="w-full sm:w-2/3 lg:w-2/3 h-40 p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-[20px]"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
-              <div className="w-1/3 h-40 p-4 bg-yellow-100 text-blue-800 border border-yellow-300 rounded-lg shadow-md">
-                <h3 className="font-semibold mb-2 text-[30px]">DEMO Query</h3>
-                <p className="text-[19px]">Example: "Market Capitalization &gt; 50 AND P/E Ratio &lt; 20"</p>
+              <div className="w-full sm:w-1/4 lg:w-1/4 h-40 p-4 bg-blue-100 border border-blue-300 rounded-lg shadow-md mt-4 sm:mt-0">
+                <h3 className="mb-2 text-[22px]">DEMO Query:</h3>
+                <p className="text-[19px]">Market Capitalization &gt; 50 AND P/E Ratio &lt; 20</p>
               </div>
             </div>
+
 
             {/* Search button */}
             <button
               onClick={handleSearch}
-              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mt-4"
             >
               Run This Query
             </button>
           </div>
-
         </div>
       )}
     </div>
+
   );
 };
 
