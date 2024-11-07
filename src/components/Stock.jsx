@@ -6,7 +6,7 @@ const Stock = () => {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 50;
+  const resultsPerPage = 10;
   const [showNext, setshowNext] = useState(true);
   const [showPrev, setshowPrev] = useState(false);
   const [error, setError] = useState('');
@@ -22,7 +22,7 @@ const Stock = () => {
     "Current Ratio",
     "Gross Margin",
   ]
-
+  //  for the current state of sorting algorithm
   const map = new Map([
     ["Market Capitalization (B)", false],
     ["P/E Ratio", false],
@@ -75,6 +75,7 @@ const Stock = () => {
 
     // Validate the conditions
     const validFields = ['Market Capitalization', 'P/E Ratio', 'ROE', 'Debt-to-Equity Ratio', 'Dividend Yield', 'Revenue Growth', 'EPS Growth', 'Current Ratio', 'Gross Margin'];
+    //  map for the Query Name and Table name 
     const m = new Map([
       ["Market Capitalization", "Market Capitalization (B)"],
       ["P/E Ratio", "P/E Ratio"],
@@ -114,7 +115,6 @@ const Stock = () => {
       }
     }
 
-    // Uncomment the code for filtering stocks
     const filteredStocks = Stocks.filter(stock => {
       return conditions.every(([field, operator, value]) => {
         const stockValue = stock[m.get(field)]; // Directly access the field value from the stock
@@ -145,7 +145,9 @@ const Stock = () => {
 
 
     setFilteredStocks(filteredStocks);
-
+    setCurrentPage(1);
+    setshowNext(true);
+    setshowPrev(false);
     setLoading(false);
   };
 
@@ -154,6 +156,8 @@ const Stock = () => {
   const endIndex = startIndex + resultsPerPage;
   const paginatedStocks = filteredStocks.slice(startIndex, endIndex);
 
+
+  // function for the next click button
   const loadMore = () => {
     if (currentPage < Math.ceil(filteredStocks.length / resultsPerPage)) {
       setCurrentPage(currentPage + 1);
@@ -164,6 +168,7 @@ const Stock = () => {
     }
   };
 
+  //  function for the previous button 
   const loadPrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -174,6 +179,7 @@ const Stock = () => {
     }
   };
 
+  //  function for the sorting algorithm
   const handleSort = (key) => {
     const isAscending = mp.get(key);
     const sortedStocks = [...filteredStocks].sort((a, b) =>
