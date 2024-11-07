@@ -40,24 +40,37 @@ const Stock = () => {
   useEffect(() => {
     setLoading(true);
     setStocks(data);
-    // setFilteredStocks(data); // Initialize filtered stocks with all stocks
+    setFilteredStocks(data); // Initialize filtered stocks with all stocks
     setLoading(false);
   }, []);
 
   useEffect(() => {
     console.log("Filtered Stocks Updated:", filteredStocks);
+    // setFilteredStocks(filteredStocks);
   }, [filteredStocks]);
 
   // Handle search logic and update filteredStocks
   const handleSearch = () => {
     setLoading(true);
+    // console.log("query", query);
+    if (error !== '') {
+      setError('');
+    }
   
     // Split the query into conditions and parse each condition
     const conditions = query.split('AND').map(condition => {
-      const [field, operator, value] = condition.trim().split(/\s*([<>=!]+)\s*/);
+      const parts = condition.trim().split(/\s*([<>=!]+)\s*/);
+      if (parts.length !== 3) {
+        setError("Enter a valid query in the format: 'Field Operator Value'");
+        setLoading(false);
+        return null; // Return null to indicate an invalid condition
+      }
+      
+      const [field, operator, value] = parts;
       return [field.trim(), operator.trim(), value.trim()];
-    });// Remove null entries if any
-  
+    }).filter(Boolean);
+
+    
     console.log(conditions);
   
     // Validate the conditions
@@ -76,7 +89,12 @@ const Stock = () => {
     )
     for (let i = 0; i < conditions.length; i++) {
       var [field, operator, value] = conditions[i];
-  
+      console.log(value);
+      if (field === '' || operator === '' || value === '') {
+        setError("Enter a valid query");
+        setLoading(false);
+        return;
+      }
       if (!validFields.includes(field)) {
         setError(`Invalid field: ${field}. Please try again.`);
         setLoading(false);
@@ -94,18 +112,13 @@ const Stock = () => {
         setLoading(false);
         return;
       }
-
-      if (field === 'Market Capitalization') {
-        field = 'Market Capitalization (B)';
-      }
-      // else if(field === )
     }
     
     // Uncomment the code for filtering stocks
     const filteredStocks = Stocks.filter(stock => {
       return conditions.every(([field, operator, value]) => {
         const stockValue = stock[m.get(field)]; // Directly access the field value from the stock
-        console.log(`Checking stock field: ${field}, operator: ${operator}, value: ${value}, stockValue: ${stockValue}`);
+        // console.log(`Checking stock field: ${field}, operator: ${operator}, value: ${value}, stockValue: ${stockValue}`);
     
         if (stockValue === undefined || stockValue === null) return false; // Skip if field is missing
     
