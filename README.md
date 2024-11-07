@@ -8,8 +8,6 @@
 
 ## Tech Stack
 - React
-- React Router
-- Recharts
 - Tailwind CSS
 
 ## Installation
@@ -35,31 +33,35 @@ Your app should now be running at http://localhost:3000.
 Enter filter criteria using the "Search Query" text field.
 Sort Columns: Click on any of the column headers in the table to sort the data.
 Pagination: Use the "Previous" and "Next" buttons to navigate between pages.
-Demo Query: View an example of how to format a query by clicking on the 'DEMO Query' section.
 I have used the data in the JSON format for the ease.
 
 #### Example Query:
 
-Example: "Market Capitalization > 50 AND P/E Ratio < 20"
-This query will filter stocks that have a market capitalization greater than 50 and a P/E ratio less than 20.
+- Market Capitalization > 50 AND P/E Ratio < 20
+- Debt-to-Equity Ratio = 1.97 AND Dividend Yield >= 4.36
+
+  These 2 queries will help you understand how to write the queries
+
 
 #### Writing a Query:
 The query syntax follows the pattern of "Parameter Comparison Value" where:
 
-- The query should be in parameter operator and value format and also you can use the AND for the more the one conditions.
+- The query should be in **[Parameter Operator Value]** format and also you can use the AND for the more the one conditions.
 - The parameter should be written with a valid spelling.
-- The query support these operators only
+- Use the parameters correctly and dont put any symbols behind it like % , : etc.
+- Use the AND operator like it is shown in the query.
+- You can use as many AND operators as you want to do.
 
-
-  &gt; (greater than)
+#### Operators
+ - &gt; (greater than)
   
-  <  (less than)
+- <  (less than)
 
-  =  (equal to)
+- =  (equal to)
 
-  &gt;= (greater than or equal to)
+- &gt;= (greater than or equal to)
   
-  <= (less than or equal to)
+- <= (less than or equal to)
 
 #### Parameters
 - Market Capitalization
